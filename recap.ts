@@ -78,3 +78,36 @@ function getProperty<T extends object, U extends keyof T>(obj: T, key: U) {
 }
 
 console.log(getProperty({ name: "John", age: 20 }, "name"))
+
+
+// Generics class
+class ItemManager<T> {
+  private items: T[] = []
+
+  addItem(item: T): void {
+    this.items.push(item)
+  }
+
+  removeItem(item: T): void {
+    if (this.items.indexOf(item) === -1) {
+      return
+    }
+    this.items.splice(this.items.indexOf(item), 1)
+  }
+
+  getItems(): T[] {
+    return [...this.items]
+  }
+}
+
+const store = new ItemManager<string>()
+store.addItem("Toy")
+store.addItem("Water bottle")
+store.removeItem("Toy")
+console.log(store.getItems()) // ["Water bottle"]
+
+
+// Readonly
+const readOnlyData: ReadonlyArray<string> = ["John", "Joe", "Billy"]
+console.log(readOnlyData)
+readOnlyData.push("Jack") // cannot push item because its readonly
